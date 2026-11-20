@@ -1,0 +1,27 @@
+$ ./q2_malloc
+K=1 scenario=1 time_ms=3622.795 checksum=3000000.0 PASSED
+RESULT,program=q2_malloc,scenario=1,K=1,n=1000000,time_ms=3622.795,checksum=3000000.0,correct=1
+K=1 scenario=2 time_ms=11.732 checksum=3000000.0 PASSED
+RESULT,program=q2_malloc,scenario=2,K=1,n=1000000,time_ms=11.732,checksum=3000000.0,correct=1
+K=1 scenario=3 time_ms=0.055 checksum=3000000.0 PASSED
+RESULT,program=q2_malloc,scenario=3,K=1,n=1000000,time_ms=0.055,checksum=3000000.0,correct=1
+K=5 scenario=1 time_ms=16485.010 checksum=15000000.0 PASSED
+RESULT,program=q2_malloc,scenario=1,K=5,n=5000000,time_ms=16485.010,checksum=15000000.0,correct=1
+K=5 scenario=2 time_ms=57.973 checksum=15000000.0 PASSED
+RESULT,program=q2_malloc,scenario=2,K=5,n=5000000,time_ms=57.973,checksum=15000000.0,correct=1
+K=5 scenario=3 time_ms=0.240 checksum=15000000.0 PASSED
+RESULT,program=q2_malloc,scenario=3,K=5,n=5000000,time_ms=0.240,checksum=15000000.0,correct=1
+K=10 scenario=1 time_ms=33234.465 checksum=30000000.0 PASSED
+RESULT,program=q2_malloc,scenario=1,K=10,n=10000000,time_ms=33234.465,checksum=30000000.0,correct=1
+K=10 scenario=2 time_ms=137.621 checksum=30000000.0 PASSED
+RESULT,program=q2_malloc,scenario=2,K=10,n=10000000,time_ms=137.621,checksum=30000000.0,correct=1
+K=10 scenario=3 time_ms=0.473 checksum=30000000.0 PASSED
+RESULT,program=q2_malloc,scenario=3,K=10,n=10000000,time_ms=0.473,checksum=30000000.0,correct=1
+K=50 scenario=2 time_ms=593.506 checksum=150000000.0 PASSED
+RESULT,program=q2_malloc,scenario=2,K=50,n=50000000,time_ms=593.506,checksum=150000000.0,correct=1
+K=50 scenario=3 time_ms=2.341 checksum=150000000.0 PASSED
+RESULT,program=q2_malloc,scenario=3,K=50,n=50000000,time_ms=2.341,checksum=150000000.0,correct=1
+K=100 scenario=2 time_ms=1174.923 checksum=300000000.0 PASSED
+RESULT,program=q2_malloc,scenario=2,K=100,n=100000000,time_ms=1174.923,checksum=300000000.0,correct=1
+K=100 scenario=3 time_ms=4.687 checksum=300000000.0 PASSED
+RESULT,program=q2_malloc,scenario=3,K=100,n=100000000,time_ms=4.687,checksum=300000000.0,correct=1

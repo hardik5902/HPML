@@ -1,0 +1,4 @@
+$ python src/partb/q4_plot.py --bindir src/partb --out-dir /content/report_out/plots
+Wrote /content/report_out/plots/partb_measurements.csv
+Wrote /content/report_out/plots/partb_without_unified.png
+Wrote /content/report_out/plots/partb_with_unified.png

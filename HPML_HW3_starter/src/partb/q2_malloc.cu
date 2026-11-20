@@ -20,23 +20,18 @@ __global__ void addKernel(long n, int offset, float *z, const float *x, const fl
     if (i < n) z[i] = x[i] + y[i];
 }
 
-// TODO: dispatch on `scenario` and launch addKernel to cover all n elements.
-// Call it as addKernel<<<grid, block>>>(n, offset, dz, dx, dy); the kernel's
-// `n` bound makes a final partial block safe. The three scenarios differ
-// only in how the n elements are split across launches:
-//   scenario 1: one thread per launch, so it takes n launches to cover n
-//               elements.
-//   scenario 2: 256 threads per launch, so it takes about n/256 launches.
-//   scenario 3: a single launch of enough 256-thread blocks to cover all n.
-// Work out the grid/block arguments and the offset for each case yourself.
-//
-// Keep the single GpuTimer below wrapped around ALL of a scenario's
-// launches, so scenario 1's per-launch overhead (the point of comparing it
-// against scenario 3) is included, not hidden.
-//
-// The stub below compiles and runs but launches nothing, so dz keeps its
-// uninitialized contents and the checksum check fails until you implement
-// this.
+// runScenario (implemented): covers all n elements with addKernel, split
+// across launches according to `scenario`:
+//   scenario 1: n launches of <<<1, 1>>>; launch i uses offset i, so each
+//               launch adds exactly one element.
+//   scenario 2: floor(n/256) launches of <<<1, 256>>> with offsets 0, 256,
+//               512, ...; then one <<<1, n % 256>>> launch for the remainder
+//               (skipped when n is a multiple of 256).
+//   scenario 3: one launch of <<<ceil(n/256), 256>>> with offset 0; the
+//               kernel's i < n guard handles the final partial block.
+// A single GpuTimer wraps ALL launches of a scenario (plus a final
+// cudaDeviceSynchronize), so scenario 1's per-launch overhead is included.
+// The host->device copies happen in main() before this, outside the timer.
 static float runScenario(int scenario, long n, float *dz, const float *dx, const float *dy)
 {
     GpuTimer timer;

@@ -1,6 +1,6 @@
 #include "common.h"
 
-// TODO (Part C, C1 -- 15 pts): naive scaled dot-product attention.
+// Part C, C1: naive scaled dot-product attention (implemented).
 //
 // Compute, for Q, K, V of shape (N, d):
 //   1. scores:  S[i,j] = (1/sqrt(d)) * sum_t Q[i,t] * K[j,t]      (N x N)
@@ -13,11 +13,14 @@
 // attention output; the grader checks each one element-wise against an
 // independent reference (the printed checksum is only for your report).
 //
-// Three kernel stubs are provided with signatures (scores, row softmax,
-// output); you choose the thread/block decomposition and any shared memory,
-// and you set the launch configuration in main(). The stubs are empty and
-// the driver zeros the output, so the program compiles and runs but will not
-// match the reference until you implement the kernels and their launches.
+// Implementation (three kernels, launched in order in main()):
+//   scores_kernel       2-D grid of 16x16 blocks, one thread per S[i,j];
+//                       j is on threadIdx.x so the writes to S are coalesced.
+//   softmax_rows_kernel one 256-thread block per row: shared-memory tree
+//                       reduction for the row max, exp(S - max) with a second
+//                       reduction for the row sum, then divide -- in place.
+//   output_kernel       one thread per O[i,t] = sum_j P[i,j] * V[j,t]; t is on
+//                       threadIdx.x so the reads of V and writes of O coalesce.
 
 // Fill S (N x N, row-major) with the scaled scores: S[i,j] must end up equal
 // to scale * dot(Q[i,:], K[j,:]), where Q and K are (N, d) row-major. You
@@ -101,16 +104,15 @@ int main(int argc, char **argv)
     CUDA_CHECK(cudaMemcpy(dQ, hQ, qkvBytes, cudaMemcpyHostToDevice));
     CUDA_CHECK(cudaMemcpy(dK, hK, qkvBytes, cudaMemcpyHostToDevice));
     CUDA_CHECK(cudaMemcpy(dV, hV, qkvBytes, cudaMemcpyHostToDevice));
-    CUDA_CHECK(cudaMemset(dO, 0, qkvBytes));  // defined output until you launch your kernels
+    CUDA_CHECK(cudaMemset(dO, 0, qkvBytes));  // zero O before the kernels write it
 
     cudaEvent_t startE, stopE;
     cudaEventCreate(&startE);
     cudaEventCreate(&stopE);
     cudaEventRecord(startE);
-    // TODO (C1): choose the grid/block (and any dynamic shared memory) for
-    // each kernel and launch them in order: scores_kernel, then
-    // softmax_rows_kernel, then output_kernel. The timing scaffold around
-    // these launches is provided; do not change it.
+    // Launch configuration: scores on a ceil(N/16) x ceil(N/16) grid of 16x16
+    // blocks, softmax with one 256-thread block per row, output on a
+    // ceil(d/16) x ceil(N/16) grid of 16x16 blocks. Timed by the given events.
     dim3 blk(16, 16);
     scores_kernel<<<dim3((a.N + 15) / 16, (a.N + 15) / 16), blk>>>(a.N, a.d, scale, dQ, dK, dS);
     softmax_rows_kernel<<<a.N, 256>>>(a.N, dS);

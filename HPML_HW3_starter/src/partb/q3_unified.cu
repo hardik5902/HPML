@@ -15,10 +15,12 @@ __global__ void addKernel(long n, int offset, float *z, const float *x, const fl
     if (i < n) z[i] = x[i] + y[i];
 }
 
-// TODO: implement the same three launch scenarios as q2_malloc.cu's
-// runScenario (see that file for the description). The logic is identical
-// here -- only the memory (managed vs explicit) differs, and that
-// difference lives in main(), not in this function.
+// runScenario (implemented): the same three launch patterns as
+// q2_malloc.cu (n x <<<1,1>>>; n/256 x <<<1,256>>> plus a remainder launch;
+// one <<<ceil(n/256),256>>> launch). Only the memory differs: x, y, z are
+// managed pointers, so there is no cudaMemcpy. Because the host initialises
+// the arrays in main(), the GPU's first touch migrates pages on demand
+// INSIDE this timed region -- these are first-touch timings.
 static float runScenario(int scenario, long n, float *z, const float *x, const float *y)
 {
     GpuTimer timer;

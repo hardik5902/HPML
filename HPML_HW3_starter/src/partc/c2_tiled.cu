@@ -1,6 +1,6 @@
 #include "common.h"
 
-// TODO (Part C, C2 -- 25 pts): tiled, FlashAttention-style attention.
+// Part C, C2: tiled, FlashAttention-style attention (implemented).
 //
 // The naive C1 kernel writes the whole N x N score matrix to global memory
 // and reads it back. This kernel must NOT materialize it. Compute the same
@@ -15,11 +15,12 @@
 // barrier wherever one thread's shared-memory writes must be visible to the
 // others before they read. The output must match C1 element by element.
 //
-// You own the whole implementation: the block-to-row mapping, the tile
-// width, the shared-memory layout, and the launch configuration in main().
-// The stub is empty and the driver zeros the output, so the program compiles
-// and runs but will not match the reference until you implement the kernel
-// and its launch.
+// Implementation: one block (TPB threads) per query row; K and V are
+// streamed in tiles of BC keys through shared memory, and the online-softmax
+// state (running max m, running denominator l, rescaled accumulator acc[d])
+// is carried across tiles, so the N x N scores never reach global memory.
+// When a tile raises the max from m to m', the old l and acc are multiplied
+// by alpha = exp(m - m') before the new tile's terms are added.
 #define BC 16        // keys per tile
 #define TPB 128      // threads per block
 #define MAXACC 8     // supports d <= TPB * MAXACC = 1024
@@ -115,15 +116,15 @@ int main(int argc, char **argv)
     CUDA_CHECK(cudaMemcpy(dQ, hQ, qkvBytes, cudaMemcpyHostToDevice));
     CUDA_CHECK(cudaMemcpy(dK, hK, qkvBytes, cudaMemcpyHostToDevice));
     CUDA_CHECK(cudaMemcpy(dV, hV, qkvBytes, cudaMemcpyHostToDevice));
-    CUDA_CHECK(cudaMemset(dO, 0, qkvBytes));  // defined output until you launch your kernel
+    CUDA_CHECK(cudaMemset(dO, 0, qkvBytes));  // zero O before the kernel writes it
 
     cudaEvent_t startE, stopE;
     cudaEventCreate(&startE);
     cudaEventCreate(&stopE);
     cudaEventRecord(startE);
-    // TODO (C2): choose the grid, block, and dynamic shared-memory size for
-    // your design and launch attn_tiled here. The timing scaffold around
-    // this launch is provided; do not change it.
+    // Launch: N blocks (one per query row) of TPB threads, with dynamic shared
+    // memory for q[d], Ks[BC][d+1], Vs[BC][d+1] and s[BC] (padded rows avoid
+    // bank conflicts). Opt in to >48 KB shared memory only if d needs it.
     size_t shmem = (size_t)(a.d + 2 * BC * (a.d + 1) + BC) * sizeof(double);
     if (shmem > 48 * 1024)
         CUDA_CHECK(cudaFuncSetAttribute(attn_tiled, cudaFuncAttributeMaxDynamicSharedMemorySize, (int)shmem));

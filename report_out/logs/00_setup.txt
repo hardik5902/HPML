@@ -1,0 +1,11 @@
+$ nvidia-smi --query-gpu=name,driver_version,memory.total,compute_cap --format=csv; nvcc --version | tail -n 2; lscpu | grep -E '^Model name|^CPU\(s\)'; grep PRETTY_NAME /etc/os-release; uname -r; free -g | head -n 2
+name, driver_version, memory.total [MiB], compute_cap
+Tesla T4, 580.82.07, 15360 MiB, 7.5
+Cuda compilation tools, release 13.0, V13.0.88
+Build cuda_13.0.r13.0/compiler.36424714_0
+CPU(s):                                  2
+Model name:                              Intel(R) Xeon(R) CPU @ 2.00GHz
+PRETTY_NAME="Ubuntu 24.04.4 LTS"
+6.6.159+
+               total        used        free      shared  buff/cache   available
+Mem:              12           1           8           0           3          11

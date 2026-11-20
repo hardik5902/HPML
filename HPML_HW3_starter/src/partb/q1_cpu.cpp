@@ -15,12 +15,11 @@
 // K=1 million -- grade_local.py uses this for a fast correctness/build
 // smoke test; run with no args to reproduce the full sweep for your report.
 //
-// TODO: implement addArrays so that z becomes the element-wise sum of x and
-// y. The stub below compiles and runs but just writes zeros, so it fails the
-// checksum check (which expects every z[i] == 3.0) until you implement it.
+// addArrays (implemented, B1): z[i] = x[i] + y[i] for all n elements.
+// A plain sequential loop on one CPU core -- this is the CPU baseline the
+// GPU scenarios in q2_malloc / q3_unified are compared against. Only this
+// call is timed in main() (std::chrono), not allocation or initialisation.
 static void addArrays(long n, const float *x, const float *y, float *z) {
-    // TODO (B1): set z to the element-wise sum of x and y (both length n).
-    // The placeholder below writes zeros so the program runs; replace it.
     for (long i = 0; i < n; ++i) z[i] = x[i] + y[i];
 }
 

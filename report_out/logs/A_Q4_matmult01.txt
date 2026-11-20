@@ -1,0 +1,16 @@
+$ ./matmult01 8 && ./matmult01 16 && ./matmult01 32
+Matrix size: 256 x 256 (FOOTPRINT_SIZE=32)
+Kernel Time: 0.147 milliseconds (ms)
+Max abs error vs CPU reference: 0
+Test PASSED
+RESULT,program=matmult01,size=256,footprint=32,time_ms=0.147,correct=1,max_abs_err=0
+Matrix size: 512 x 512 (FOOTPRINT_SIZE=32)
+Kernel Time: 0.289 milliseconds (ms)
+Max abs error vs CPU reference: 0
+Test PASSED
+RESULT,program=matmult01,size=512,footprint=32,time_ms=0.289,correct=1,max_abs_err=0
+Matrix size: 1024 x 1024 (FOOTPRINT_SIZE=32)
+Kernel Time: 1.715 milliseconds (ms)
+Max abs error vs CPU reference: 0
+Test PASSED
+RESULT,program=matmult01,size=1024,footprint=32,time_ms=1.715,correct=1,max_abs_err=0

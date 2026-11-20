@@ -1,0 +1,11 @@
+$ jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=900 src/partc/c4_triton.ipynb --output /content/report_out/c4_triton.ipynb
+[NbConvertApp] Converting notebook src/partc/c4_triton.ipynb to notebook
+0.00s - Debugger warning: It seems that frozen modules are being used, which may
+0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+0.00s - to python to disable frozen modules.
+0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+0.00s - Debugger warning: It seems that frozen modules are being used, which may
+0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+0.00s - to python to disable frozen modules.
+0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+[NbConvertApp] Writing 12869 bytes to /content/report_out/c4_triton.ipynb

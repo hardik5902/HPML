@@ -1,0 +1,11 @@
+$ ./q1_cpu
+K=1 n=1000000 time_ms=2.813 checksum=3000000.0 PASSED
+RESULT,program=q1_cpu,K=1,n=1000000,time_ms=2.813,checksum=3000000.0,correct=1
+K=5 n=5000000 time_ms=15.698 checksum=15000000.0 PASSED
+RESULT,program=q1_cpu,K=5,n=5000000,time_ms=15.698,checksum=15000000.0,correct=1
+K=10 n=10000000 time_ms=24.301 checksum=30000000.0 PASSED
+RESULT,program=q1_cpu,K=10,n=10000000,time_ms=24.301,checksum=30000000.0,correct=1
+K=50 n=50000000 time_ms=148.879 checksum=150000000.0 PASSED
+RESULT,program=q1_cpu,K=50,n=50000000,time_ms=148.879,checksum=150000000.0,correct=1
+K=100 n=100000000 time_ms=297.383 checksum=300000000.0 PASSED
+RESULT,program=q1_cpu,K=100,n=100000000,time_ms=297.383,checksum=300000000.0,correct=1

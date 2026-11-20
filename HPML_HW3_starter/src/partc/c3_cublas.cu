@@ -1,7 +1,7 @@
 #include "common.h"
 #include <cublas_v2.h>
 
-// TODO (Part C, C3 -- 15 pts): the same attention built from cuBLAS GEMMs.
+// Part C, C3: the same attention built from cuBLAS GEMMs (implemented).
 //
 // The two matmuls in attention (Q*K^T and P*V) are exactly what a BLAS
 // library is tuned for. Call cublasDgemm for both and keep only the softmax
@@ -13,9 +13,10 @@
 // each GEMM produces the row-major result the next step expects; your report
 // explains that mapping.
 //
-// The stubs are empty and the driver zeros S and O, so the program compiles
-// and runs but will not match the reference until you implement the softmax
-// and add the two GEMMs.
+// Implementation: S = scale*Q*K^T and O = P*V are each one cublasDgemm call;
+// the safe row softmax between them is the same kernel as C1. A row-major
+// r x c buffer is read by cuBLAS as its column-major transpose (c x r, ld c),
+// so no explicit transposes are needed (see the comments at each call).
 
 #define CUBLAS_CHECK(x) do { \
     cublasStatus_t _s = (x); \
@@ -25,10 +26,8 @@
     } \
 } while (0)
 
-// TODO (C3): safe row softmax of S (N x N, row-major) in place. This is the
-// same operation as the softmax you wrote in C1; reuse that implementation
-// (and launch it with your own configuration in main). The stub leaves S
-// unchanged, so C3 will not match the reference until you fill it in.
+// Safe row softmax of S (N x N, row-major) in place -- same kernel as C1:
+// one 256-thread block per row, shared-memory reductions for max and sum.
 __global__ void softmax_rows_kernel(int N, double *S)
 {
     // One block per row; block-wide max then sum reductions in shared memory.
@@ -92,10 +91,16 @@ int main(int argc, char **argv)
     const double alpha_s = scale, beta0 = 0.0, alpha1 = 1.0;
     (void)alpha_s; (void)beta0; (void)alpha1;
 
-    // Warm-up (outside the timed region): the first cuBLAS call pays one-time
-    // initialization. S is fully overwritten by the real run (beta = 0).
+    // Warm-up (outside the timed region): one full untimed pass so cuBLAS pays
+    // its one-time initialization before timing. It is a complete matching
+    // pair -- S = scale*Q*K^T, softmax, then O = P*V reading that S -- so every
+    // QK^T GEMM is followed by the PV GEMM that consumes it. S and O are fully
+    // overwritten by the timed run (beta = 0).
     CUBLAS_CHECK(cublasDgemm(h, CUBLAS_OP_T, CUBLAS_OP_N, N, N, d,
                              &alpha_s, dK, d, dQ, d, &beta0, dS, N));
+    softmax_rows_kernel<<<N, 256>>>(N, dS);
+    CUBLAS_CHECK(cublasDgemm(h, CUBLAS_OP_N, CUBLAS_OP_N, d, N, N,
+                             &alpha1, dV, d, dS, N, &beta0, dO, d));
     CUDA_CHECK(cudaDeviceSynchronize());
 
     cudaEvent_t startE, stopE;
@@ -103,12 +108,8 @@ int main(int argc, char **argv)
     cudaEventCreate(&stopE);
     cudaEventRecord(startE);
 
-    // TODO (C3): implement the three steps in order, inside this timed block:
-    //   1. S = scale * Q * K^T   (one cublasDgemm; result row-major N x N in dS)
-    //   2. softmax over the rows of S (launch softmax_rows_kernel with your
-    //      own grid/block/shared-memory configuration)
-    //   3. O = P * V             (one cublasDgemm; result row-major N x d in dO)
-    // Do not change the timing scaffold around this block.
+    // Timed block: 1. S = scale*Q*K^T (cublasDgemm), 2. row softmax of S
+    // (<<<N, 256>>>), 3. O = P*V (cublasDgemm). Results are row-major.
     // Row-major X (r x c, ld=c) is the column-major matrix X^T (c x r, ld=c).
     // GEMM 1 (column-major view): S^T(NxN) = Kc^T * Qc, Kc=K^T (d x N, ld d).
     CUBLAS_CHECK(cublasDgemm(h, CUBLAS_OP_T, CUBLAS_OP_N, N, N, d,

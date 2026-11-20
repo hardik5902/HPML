@@ -1,0 +1,13 @@
+$ ./vecadd01 500 && ./vecadd01 1000 && ./vecadd01 2000
+N=61440000 valuesPerThread=500
+Kernel Time: 3.497 milliseconds (ms)
+Test PASSED
+RESULT,program=vecadd01,N=61440000,values_per_thread=500,time_ms=3.497,correct=1
+N=122880000 valuesPerThread=1000
+Kernel Time: 6.972 milliseconds (ms)
+Test PASSED
+RESULT,program=vecadd01,N=122880000,values_per_thread=1000,time_ms=6.972,correct=1
+N=245760000 valuesPerThread=2000
+Kernel Time: 14.601 milliseconds (ms)
+Test PASSED
+RESULT,program=vecadd01,N=245760000,values_per_thread=2000,time_ms=14.601,correct=1

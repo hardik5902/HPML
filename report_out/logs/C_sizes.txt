@@ -1,0 +1,13 @@
+$ ./c1_naive 1024 64 && ./c2_tiled 1024 64 && ./c3_cublas 1024 64 && ./c1_naive 4096 64 && ./c2_tiled 4096 64 && ./c3_cublas 4096 64
+311424.831,3.380
+RESULT,program=c1_naive,N=1024,d=64,time_ms=3.380,checksum=311424.831346
+311424.831,28.509
+RESULT,program=c2_tiled,N=1024,d=64,time_ms=28.509,checksum=311424.831346
+311424.831,13.793
+RESULT,program=c3_cublas,N=1024,d=64,time_ms=13.793,checksum=311424.831346
+1247599.651,49.142
+RESULT,program=c1_naive,N=4096,d=64,time_ms=49.142,checksum=1247599.651191
+1247599.651,441.426
+RESULT,program=c2_tiled,N=4096,d=64,time_ms=441.426,checksum=1247599.651191
+1247599.651,23.858
+RESULT,program=c3_cublas,N=4096,d=64,time_ms=23.858,checksum=1247599.651191

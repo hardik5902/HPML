@@ -1,0 +1,3 @@
+$ ./c3_cublas
+623032.963,26.341
+RESULT,program=c3_cublas,N=2048,d=64,time_ms=26.341,checksum=623032.963445

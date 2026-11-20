@@ -1,0 +1,27 @@
+$ ./q3_unified
+K=1 scenario=1 time_ms=2939.679 checksum=3000000.0 PASSED
+RESULT,program=q3_unified,scenario=1,K=1,n=1000000,time_ms=2939.679,checksum=3000000.0,correct=1
+K=1 scenario=2 time_ms=13.158 checksum=3000000.0 PASSED
+RESULT,program=q3_unified,scenario=2,K=1,n=1000000,time_ms=13.158,checksum=3000000.0,correct=1
+K=1 scenario=3 time_ms=3.596 checksum=3000000.0 PASSED
+RESULT,program=q3_unified,scenario=3,K=1,n=1000000,time_ms=3.596,checksum=3000000.0,correct=1
+K=5 scenario=1 time_ms=16065.856 checksum=15000000.0 PASSED
+RESULT,program=q3_unified,scenario=1,K=5,n=5000000,time_ms=16065.856,checksum=15000000.0,correct=1
+K=5 scenario=2 time_ms=86.980 checksum=15000000.0 PASSED
+RESULT,program=q3_unified,scenario=2,K=5,n=5000000,time_ms=86.980,checksum=15000000.0,correct=1
+K=5 scenario=3 time_ms=28.625 checksum=15000000.0 PASSED
+RESULT,program=q3_unified,scenario=3,K=5,n=5000000,time_ms=28.625,checksum=15000000.0,correct=1
+K=10 scenario=1 time_ms=32111.023 checksum=30000000.0 PASSED
+RESULT,program=q3_unified,scenario=1,K=10,n=10000000,time_ms=32111.023,checksum=30000000.0,correct=1
+K=10 scenario=2 time_ms=129.037 checksum=30000000.0 PASSED
+RESULT,program=q3_unified,scenario=2,K=10,n=10000000,time_ms=129.037,checksum=30000000.0,correct=1
+K=10 scenario=3 time_ms=29.028 checksum=30000000.0 PASSED
+RESULT,program=q3_unified,scenario=3,K=10,n=10000000,time_ms=29.028,checksum=30000000.0,correct=1
+K=50 scenario=2 time_ms=639.935 checksum=150000000.0 PASSED
+RESULT,program=q3_unified,scenario=2,K=50,n=50000000,time_ms=639.935,checksum=150000000.0,correct=1
+K=50 scenario=3 time_ms=160.847 checksum=150000000.0 PASSED
+RESULT,program=q3_unified,scenario=3,K=50,n=50000000,time_ms=160.847,checksum=150000000.0,correct=1
+K=100 scenario=2 time_ms=1304.646 checksum=300000000.0 PASSED
+RESULT,program=q3_unified,scenario=2,K=100,n=100000000,time_ms=1304.646,checksum=300000000.0,correct=1
+K=100 scenario=3 time_ms=306.254 checksum=300000000.0 PASSED
+RESULT,program=q3_unified,scenario=3,K=100,n=100000000,time_ms=306.254,checksum=300000000.0,correct=1

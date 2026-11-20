@@ -1,0 +1,8 @@
+$ (outputs of the executed src/partc/c4_triton.ipynb)
+reference O shape (2048, 64) checksum 298.03717041015625
+Triton checksum 298.03717041015625 | reference 298.03717041015625
+max abs error vs reference: 3.725290298461914e-07
+Triton attention: 1.809 ms
+PyTorch SDPA:     1.115 ms
+SDPA is 1.6x faster than Triton at this size
+1.809

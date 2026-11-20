@@ -1,0 +1,4 @@
+$ python grade_local.py --arch sm_75 --out /content/report_out/results.json 2>&1 | tail -n 5
+[grade_local.py] mode=gpu arch=sm_75 host=ed77f9c78c0f
+[grade_local.py] Wrote /content/report_out/results.json
+[grade_local.py] results.json validated against results.schema.json: OK

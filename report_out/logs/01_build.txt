@@ -1,0 +1,4 @@
+$ cd src && make clean > /dev/null && make ARCH=sm_75 2>&1 | tail -n 3
+nvcc -O3 -std=c++14 -arch=sm_75 c2_tiled.cu -o c2_tiled
+nvcc -O3 -std=c++14 -arch=sm_75 c3_cublas.cu -lcublas -o c3_cublas
+make[1]: Leaving directory '/content/HPML/HPML_HW3_starter/src/partc'
