@@ -2,7 +2,7 @@
   "meta": {
     "assignment": "hw3-cuda",
     "mode": "gpu",
-    "generated_at": "2026-11-18T23:20:59.384127+00:00",
+    "generated_at": "2026-11-19T00:25:12.821034+00:00",
     "grader_version": "1.0",
     "host": {
       "hostname": "7be064574743",
@@ -24,7 +24,7 @@
           "program": "vecadd00",
           "N": 122880,
           "values_per_thread": 1,
-          "time_ms": 0.122,
+          "time_ms": 0.117,
           "correct": 1,
           "returncode": 0
         },
@@ -32,7 +32,7 @@
           "program": "vecadd00",
           "N": 6144000,
           "values_per_thread": 50,
-          "time_ms": 9.042,
+          "time_ms": 8.95,
           "correct": 1,
           "returncode": 0
         }
@@ -47,7 +47,7 @@
           "program": "vecadd01",
           "N": 122880,
           "values_per_thread": 1,
-          "time_ms": 0.072,
+          "time_ms": 0.067,
           "correct": 1,
           "returncode": 0
         },
@@ -70,7 +70,7 @@
           "program": "matmult00",
           "size": 256,
           "footprint": 16,
-          "time_ms": 0.171,
+          "time_ms": 0.146,
           "correct": 1,
           "max_abs_err": 0,
           "returncode": 0
@@ -79,7 +79,7 @@
           "program": "matmult00",
           "size": 1024,
           "footprint": 16,
-          "time_ms": 2.22,
+          "time_ms": 2.184,
           "correct": 1,
           "max_abs_err": 0,
           "returncode": 0
@@ -95,7 +95,7 @@
           "program": "matmult01",
           "size": 256,
           "footprint": 32,
-          "time_ms": 0.128,
+          "time_ms": 0.199,
           "correct": 1,
           "max_abs_err": 0,
           "returncode": 0
@@ -104,15 +104,15 @@
           "program": "matmult01",
           "size": 1024,
           "footprint": 32,
-          "time_ms": 1.699,
+          "time_ms": 1.923,
           "correct": 1,
           "max_abs_err": 0,
           "returncode": 0
         }
       ]
     },
-    "coalescing_speedup": 24.306451612903224,
-    "tiling_speedup": 1.3066509711595056
+    "coalescing_speedup": 24.059139784946236,
+    "tiling_speedup": 1.1357254290171608
   },
   "part_b": {
     "q1_cpu": {
@@ -124,7 +124,7 @@
           "program": "q1_cpu",
           "K": 1,
           "n": 1000000,
-          "time_ms": 2.905,
+          "time_ms": 1.938,
           "checksum": 3000000.0,
           "correct": 1,
           "returncode": 0
@@ -141,7 +141,7 @@
           "scenario": 1,
           "K": 1,
           "n": 1000000,
-          "time_ms": 3424.655,
+          "time_ms": 2725.792,
           "checksum": 3000000.0,
           "correct": 1,
           "returncode": 0
@@ -151,7 +151,7 @@
           "scenario": 2,
           "K": 1,
           "n": 1000000,
-          "time_ms": 10.453,
+          "time_ms": 10.367,
           "checksum": 3000000.0,
           "correct": 1,
           "returncode": 0
@@ -161,7 +161,7 @@
           "scenario": 3,
           "K": 1,
           "n": 1000000,
-          "time_ms": 0.05,
+          "time_ms": 0.051,
           "checksum": 3000000.0,
           "correct": 1,
           "returncode": 0
@@ -178,7 +178,7 @@
           "scenario": 1,
           "K": 1,
           "n": 1000000,
-          "time_ms": 2812.594,
+          "time_ms": 2724.041,
           "checksum": 3000000.0,
           "correct": 1,
           "returncode": 0
@@ -188,7 +188,7 @@
           "scenario": 2,
           "K": 1,
           "n": 1000000,
-          "time_ms": 12.663,
+          "time_ms": 12.055,
           "checksum": 3000000.0,
           "correct": 1,
           "returncode": 0
@@ -198,7 +198,7 @@
           "scenario": 3,
           "K": 1,
           "n": 1000000,
-          "time_ms": 2.961,
+          "time_ms": 3.171,
           "checksum": 3000000.0,
           "correct": 1,
           "returncode": 0
@@ -216,28 +216,28 @@
           "program": "c1_naive",
           "N": 8,
           "d": 4,
-          "time_ms": 0.168,
+          "time_ms": 0.181,
           "checksum": 7.914693
         },
         {
           "program": "c1_naive",
           "N": 129,
           "d": 4,
-          "time_ms": 0.173,
+          "time_ms": 0.223,
           "checksum": 290.714675
         },
         {
           "program": "c1_naive",
           "N": 257,
           "d": 8,
-          "time_ms": 0.199,
+          "time_ms": 0.203,
           "checksum": 1730.386294
         },
         {
           "program": "c1_naive",
           "N": 2048,
           "d": 64,
-          "time_ms": 12.468,
+          "time_ms": 12.316,
           "checksum": 623032.963445,
           "returncode": 0
         }
@@ -252,28 +252,28 @@
           "program": "c2_tiled",
           "N": 8,
           "d": 4,
-          "time_ms": 0.28,
+          "time_ms": 0.182,
           "checksum": 7.914693
         },
         {
           "program": "c2_tiled",
           "N": 129,
           "d": 4,
-          "time_ms": 0.656,
+          "time_ms": 0.653,
           "checksum": 290.714675
         },
         {
           "program": "c2_tiled",
           "N": 257,
           "d": 8,
-          "time_ms": 2.165,
+          "time_ms": 2.194,
           "checksum": 1730.386294
         },
         {
           "program": "c2_tiled",
           "N": 2048,
           "d": 64,
-          "time_ms": 113.252,
+          "time_ms": 112.964,
           "checksum": 623032.963445,
           "returncode": 0
         }
@@ -288,28 +288,28 @@
           "program": "c3_cublas",
           "N": 8,
           "d": 4,
-          "time_ms": 0.256,
+          "time_ms": 0.222,
           "checksum": 7.914693
         },
         {
           "program": "c3_cublas",
           "N": 129,
           "d": 4,
-          "time_ms": 28.153,
+          "time_ms": 15.563,
           "checksum": 290.714675
         },
         {
           "program": "c3_cublas",
           "N": 257,
           "d": 8,
-          "time_ms": 17.532,
+          "time_ms": 15.12,
           "checksum": 1730.386294
         },
         {
           "program": "c3_cublas",
           "N": 2048,
           "d": 64,
-          "time_ms": 19.827,
+          "time_ms": 20.274,
           "checksum": 623032.963445,
           "returncode": 0
         }
